@@ -8,6 +8,7 @@ from PIL import ImageGrab
 from game_control import *
 from predict import predict
 from scipy.misc import imresize
+from game_control import get_id
 from get_dataset import save_img
 from multiprocessing import Process
 from keras.models import model_from_json
@@ -21,7 +22,8 @@ def get_screenshot():
     return img
 
 def save_event_keyboard(data_path, event, key):
-    data_path = data_path + '/0,0,{0},{1}'.format(event, key)
+    key = get_id(key)
+    data_path = data_path + '/-1,-1,{0},{1}'.format(event, key)
     screenshot = get_screenshot()
     save_img(data_path, screenshot)
     return
@@ -52,10 +54,10 @@ def listen_keyboard():
         os.makedirs(data_path)
 
     def on_press(key):
-        save_event_keyboard(data_path, 'p', key)
+        save_event_keyboard(data_path, 1, key)
 
     def on_release(key):
-        save_event_keyboard(data_path, 'r', key)
+        save_event_keyboard(data_path, 2, key)
 
     with Listener(on_press=on_press, on_release=on_release) as listener:
         listener.join()
