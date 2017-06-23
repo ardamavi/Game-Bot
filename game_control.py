@@ -1,6 +1,12 @@
 # Arda Mavi
 from pynput.mouse import Button, Controller as Mouse
-from pynput.keyboard import Key, Controller as Keyboard
+from pynput.keyboard import Controller as Keyboard
+
+def get_key(id):
+    return # TODO: return id's key
+
+def get_id(key):
+    return # TODO: return key's id
 
 keyboard = Keyboard()
 mouse = Mouse()

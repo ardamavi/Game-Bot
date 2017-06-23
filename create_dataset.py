@@ -21,13 +21,13 @@ def get_screenshot():
     return img
 
 def save_event_keyboard(data_path, event, key):
-    data_path = data_path + '/{0},{1}'.format(event, key)
+    data_path = data_path + '/0,0,{0},{1}'.format(event, key)
     screenshot = get_screenshot()
     save_img(data_path, screenshot)
     return
 
 def save_event_mouse(data_path, x, y):
-    data_path = data_path + '/{0},{1}'.format(x, y)
+    data_path = data_path + '/{0},{1},0,0'.format(x, y)
     screenshot = get_screenshot()
     save_img(data_path, screenshot)
     return

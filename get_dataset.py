@@ -3,7 +3,6 @@ import os
 import numpy as np
 from keras.utils import to_categorical
 from scipy.misc import imread, imresize, imsave
-from database_process import create_table, add_data
 from sklearn.model_selection import train_test_split
 
 def get_img(data_path):
@@ -16,9 +15,7 @@ def save_img(img, path):
     imsave(path, img)
     return
 
-def get_dataset(dataset_path='Data/Train_Data'):
-    # Create database:
-    create_table('id_char','id, char')
+def get_dataset(dataset_path='Data/Train_Data'):s
     # Getting all data from data path:
     try:
         X = np.load('Data/npy_train_data/X.npy')
@@ -37,7 +34,6 @@ def get_dataset(dataset_path='Data/Train_Data'):
                 if data != count_categori[1]:
                     count_categori[0] += 1
                     count_categori[1] = data.split(',')
-                    add_data('id_char', "{0}, '{1}'".format(count_categori[0], count_categori[1]))
                 Y.append(count_categori[0])
         # Create dateset:
         X = np.array(X).astype('float32')/255.
