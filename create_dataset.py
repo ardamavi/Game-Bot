@@ -59,7 +59,7 @@ def listen_keyboard():
     def on_release(key):
         save_event_keyboard(data_path, 2, key)
 
-    with Listener(on_press=on_press, on_release=on_release) as listener:
+    with key_listener(on_press=on_press, on_release=on_release) as listener:
         listener.join()
 
 def main(img_len):
