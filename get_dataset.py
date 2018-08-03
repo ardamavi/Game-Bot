@@ -15,7 +15,7 @@ def save_img(img, path):
     imsave(path, img)
     return
 
-def get_dataset(dataset_path='Data/Train_Data'):s
+def get_dataset(dataset_path='Data/Train_Data'):
     # Getting all data from data path:
     try:
         X = np.load('Data/npy_train_data/X.npy')
