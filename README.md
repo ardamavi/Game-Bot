@@ -18,10 +18,10 @@ With deep learning.<br/>
 Deep Learning is a subfield of machine learning with neural networks inspired by the structure of the brains artificial neural networks.
 
 ### Playing with Artificial Intelligence:
-1. Open your want game (If artificial intelligence tarined).
+1. Open the game (If artificial intelligence trained).
 2. Run `python3 ai.py` command in terminal.
 
-### Creating Train Dataset:
+### Creating Training Dataset:
 1. Run `python3 create_dataset.py` command in terminal.
 2. Play your want game.
 3. Stop `create_dataset` program with `Cntrl-C` in terminal.
@@ -36,5 +36,9 @@ Deep Learning is a subfield of machine learning with neural networks inspired by
 - Used Python Version: 3.6.0
 
 - Install necessary modules with `sudo pip3 install -r requirements.txt` command.
+
+## WINDOWS Installation:
+- Install Python 3.6.0 : https://www.python.org/downloads/release/python-360/
+- Run CMD and Input Command `pip3 install -r Path to the Folder\requirements.txt`
 
 ### The under construction
