@@ -39,6 +39,6 @@ Deep Learning is a subfield of machine learning with neural networks inspired by
 
 ## WINDOWS Installation:
 - Install Python 3.6.0 : https://www.python.org/downloads/release/python-360/
-- Run CMD and Input Command `pip3 install -r Path to the Folder\requirements.txt`
+- Run CMD and Input Command `pip3 install -r requirements.txt`
 
 ### The under construction
