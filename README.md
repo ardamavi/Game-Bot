@@ -18,7 +18,7 @@ With deep learning.<br/>
 Deep Learning is a subfield of machine learning with neural networks inspired by the structure of the brains artificial neural networks.
 
 ### Playing with Artificial Intelligence:
-1. Open the game (If artificial intelligence trained).
+1. Open the game you want (If artificial intelligence trained).
 2. Run `python3 ai.py` command in terminal.
 
 ### Creating Training Dataset:
