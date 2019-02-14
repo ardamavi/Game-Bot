@@ -25,7 +25,7 @@ def main():
         # Image to numpy array:
         screen = np.array(screen)
         # 4 channel(PNG) to 3 channel(JPG)
-        Y = predict(model, img)
+        Y = predict(model, screen)
         if Y == [0,0,0,0]:
             # Not action
             continue
