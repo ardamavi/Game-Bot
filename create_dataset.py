@@ -62,7 +62,7 @@ def listen_keyboard():
     with key_listener(on_press=on_press, on_release=on_release) as listener:
         listener.join()
 
-def main(img_len):
+def main():
     dataset_path = 'Data/Train_Data/'
     if not os.path.exists(dataset_path):
         os.makedirs(dataset_path)
