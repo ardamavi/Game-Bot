@@ -33,7 +33,7 @@ Deep Learning is a subfield of machine learning with neural networks inspired by
 `tensorboard --logdir=Data/Checkpoints/logs`
 
 ### Important Notes:
-- Use Python version 3.6.0
+- Tested in Python version 3.6.0
 
 - Install necessary modules with `sudo pip3 install -r requirements.txt` command.
 
@@ -41,4 +41,4 @@ Deep Learning is a subfield of machine learning with neural networks inspired by
 - Install Python 3.6.0 : https://www.python.org/downloads/release/python-360/
 - Run CMD and Input Command `pip3 install -r requirements.txt`
 
-### This part is still being worked on
+### This project is still being worked on ...
