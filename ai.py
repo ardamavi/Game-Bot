@@ -17,7 +17,7 @@ def main():
     model = model_from_json(model)
     model.load_weights("Data/Model/weights.h5")
 
-    print('AI start now!')
+    print('AI has started!')
 
     while 1:
         # Get screenshot:
