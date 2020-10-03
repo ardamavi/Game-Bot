@@ -1,18 +1,17 @@
-# Arda Mavi
 import os
-import numpy as np
+import numpy as np, skimage, imageio, matplotlib
+from PIL import ImageGrab, Image
 from keras.utils import to_categorical
-from scipy.misc import imread, imresize, imsave
 from sklearn.model_selection import train_test_split
 
 def get_img(data_path):
     # Getting image array from path:
-    img = imread(data_path)
-    img = imresize(img, (150, 150, 3))
+    img = imageio.imread(data_path)
+    img = np.array(img, (150, 150, 3))
     return img
 
 def save_img(img, path):
-    imsave(path, img)
+    imageio.imwrite(path, img)
     return
 
 def get_dataset(dataset_path='Data/Train_Data'):
