@@ -1,13 +1,11 @@
-# Arda Mavi
 import os
 import sys
 import platform
-import numpy as np
+import numpy as np, skimage, imageio, matplotlib
 from time import sleep
-from PIL import ImageGrab
+from PIL import ImageGrab, Image
 from game_control import *
 from predict import predict
-from scipy.misc import imresize
 from game_control import get_id
 from get_dataset import save_img
 from multiprocessing import Process
@@ -18,7 +16,7 @@ from pynput.keyboard import Listener as key_listener
 def get_screenshot():
     img = ImageGrab.grab()
     img = np.array(img)[:,:,:3] # Get first 3 channel from image as numpy array.
-    img = imresize(img, (150, 150, 3)).astype('float32')/255.
+    img = np.array(img, (150, 150, 3)).astype('float32')/255.
     return img
 
 def save_event_keyboard(data_path, event, key):

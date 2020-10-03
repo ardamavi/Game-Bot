@@ -1,9 +1,9 @@
 # Arda Mavi
 import os
 import platform
-import numpy as np
+import numpy as np, skimage, imageio, matplotlib
 from time import sleep
-from PIL import ImageGrab
+from PIL import ImageGrab, Image
 from game_control import *
 from predict import predict
 from game_control import *
