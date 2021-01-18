@@ -1,6 +1,7 @@
 # Arda Mavi
 import os
 import numpy as np
+import cv2
 from keras.utils import to_categorical
 import imageio
 from sklearn.model_selection import train_test_split
@@ -9,7 +10,18 @@ from sklearn.model_selection import train_test_split
 def get_img(data_path):
     # Getting image array from path:
     img = imageio.imread(data_path)
-    img = imageio.imresize(img, (150, 150, 3))
+    """
+    The ratio is r. The new image will
+    have a height of 50 pixels. To determine the ratio of the new
+    height to the old height, we divide 50 by the old height.
+    """
+
+    r = 50.0 / img.shape[0]
+    dim = (int(img.shape[1] * r), 50)
+
+    img = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
+    # img = imresize(img, (150, 150, 3)).astype('float32') / 255.
+
     return img
 
 
