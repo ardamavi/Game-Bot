@@ -15,21 +15,22 @@ from keras.models import model_from_json
 from pynput.mouse import Listener as Mouse_Listener
 from pynput.keyboard import Listener as Key_Listener
 
+
 def get_screenshot():
     img = ImageGrab.grab()
     img = np.array(img)[:, :, :3]  # Get first 3 channel from image as numpy array.
 
     """
     The ratio is r. The new image will
-    have a height of 50 pixels. To determine the ratio of the new
-    height to the old height, we divide 50 by the old height.
+    have a height of 150 pixels. To determine the ratio of the new
+    height to the old height, we divide 150 by the old height.
     """
 
-    r = 50.0 / img.shape[0]
-    dim = (int(img.shape[1] * r), 50)
+    r = 150.0 / img.shape[0]
+    dim = (int(img.shape[1] * r), 150)
 
     img = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
-    # img = imresize(img, (150, 150, 3)).astype('float32') / 255.
+    print(img)
 
     return img
 
@@ -42,6 +43,8 @@ def save_event_keyboard(data_path, event, key):
     return
 
 
+"""
+
 def save_event_mouse(data_path, x, y):
     data_path = data_path + '/{0},{1},0,0'.format(x, y)
     screenshot = get_screenshot()
@@ -50,7 +53,7 @@ def save_event_mouse(data_path, x, y):
 
 
 def listen_mouse():
-    data_path = 'Data/Train_Data/Mouse'
+    data_path = 'data/train_data/mouse'
     if not os.path.exists(data_path):
         os.makedirs(data_path)
 
@@ -65,10 +68,11 @@ def listen_mouse():
 
     with Mouse_Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:
         listener.join()
+"""
 
 
 def listen_keyboard():
-    data_path = 'Data/Train_Data/Keyboard'
+    data_path = 'data/train_data/keyboard'
     if not os.path.exists(data_path):
         os.makedirs(data_path)
 
@@ -83,12 +87,12 @@ def listen_keyboard():
 
 
 def main():
-    dataset_path = 'Data/Train_Data/'
+    dataset_path = 'data/train_data/'
     if not os.path.exists(dataset_path):
         os.makedirs(dataset_path)
 
     # Start to listening mouse with new process:
-    Process(target=listen_mouse, args=()).start()
+    # Process(target=listen_mouse, args=()).start()
     listen_keyboard()
     return
 
