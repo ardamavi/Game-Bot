@@ -37,16 +37,16 @@ def get_model():
 
     flat_1 = Flatten()(pooling_2)
 
-    fc = Dense(1280)(flat_1)
+    fc = Dense(512)(flat_1)
     fc = Activation('relu')(fc)
     fc = Dropout(0.5)(fc)
-    fc = Dense(4)(fc)
+    fc = Dense(39)(fc)
 
-    outputs = Activation('sigmoid')(fc)
+    outputs = Activation('softmax')(fc)
 
     model = Model(inputs=inputs, outputs=outputs)
 
-    model.compile(loss='categorical_crossentropy', optimizer='adadelta', metrics=['accuracy'])
+    model.compile(loss='binary_crossentropy', optimizer='adadelta', metrics=['accuracy'])
 
     return model
 
