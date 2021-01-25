@@ -5,8 +5,8 @@ from get_dataset import get_dataset
 from get_model import get_model, save_model
 from keras.callbacks import ModelCheckpoint, TensorBoard
 
-epochs = 100
-batch_size = 5
+epochs = 10
+batch_size = 32
 
 def train_model(model, X, X_test, Y, Y_test):
     checkpoints = []
