@@ -58,4 +58,4 @@ def get_dataset(dataset_path='Data/Train_Data'):
             # store the data as binary data stream
             pickle.dump(Z, filehandle)
     X, X_test, Y, Y_test = train_test_split(X, Y, test_size=0.1, random_state=42)
-    return X, X_test, Y, Y_test
+    return X, X_test, Y, Y_test, count_categori[0]+1
