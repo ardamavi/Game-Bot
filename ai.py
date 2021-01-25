@@ -20,7 +20,7 @@ def main():
     model = model_from_json(model)
     model.load_weights("Data/Model/weights.h5")
 
-    print('AI start now!')
+    print('AI starting now!')
     with open('listfile.data', 'rb') as filehandle:
         # read the data as binary data stream
         placesList = pickle.load(filehandle)
