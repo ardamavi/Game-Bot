@@ -34,11 +34,16 @@ def scroll(x, y):
 
 def click(x, y):
     mouse.press(Button.left)
+    move(x, y)
     return
 
 # Keyboard:
 def press(key):
-    keyboard.press(key)
+    if key == "space_bar":
+        keyboard.press(Key.space)
+        return
+    else:
+        keyboard.press(key)
     return
 
 def release(key):
