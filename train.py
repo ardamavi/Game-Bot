@@ -21,8 +21,8 @@ def train_model(model, X, X_test, Y, Y_test):
     return model
 
 def main():
-    X, X_test, Y, Y_test = get_dataset()
-    model = get_model()
+    X, X_test, Y, Y_test, action_total = get_dataset()
+    model = get_model(action_total)
     model = train_model(model, X, X_test, Y, Y_test)
     save_model(model)
     return model
