@@ -15,7 +15,7 @@ def save_model(model):
     return
 
 
-def get_model():
+def get_model(action_total):
     model = Sequential()
 
     model.add(Conv2D(10, (3,3)))
@@ -26,7 +26,7 @@ def get_model():
     #model.add(Dropout(0.4))
     model.add(Flatten())
     model.add(Dense(256, activation='relu'))
-    model.add(Dense(output_neurons, activation='softmax'))
+    model.add(Dense(action_total, activation='softmax'))
 
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
