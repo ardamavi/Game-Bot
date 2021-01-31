@@ -1,5 +1,4 @@
 # Arda Mavi
-import torch
 import os
 import sys
 import platform
