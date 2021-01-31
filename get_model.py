@@ -1,8 +1,7 @@
 # Arda Mavi
 import os
-from keras.models import Model
-from keras.optimizers import Adadelta
-from keras.layers import Input, Conv2D, Activation, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Conv2D, MaxPool2D, Flatten, Dropout
 
 def save_model(model):
     if not os.path.exists('Data/Model/'):
@@ -16,37 +15,20 @@ def save_model(model):
     return
 
 
-def get_model():
-    inputs = Input(shape=(150, 150, 3))
+def get_model(action_total):
+    model = Sequential()
 
-    conv_1 = Conv2D(32, (3,3), strides=(1,1))(inputs)
-    act_1 = Activation('relu')(conv_1)
+    model.add(Conv2D(10, (3,3)))
+    model.add(MaxPool2D((2,2)))
+    for i in range(3):
+        model.add(Conv2D(16, (2, 2)))
+        model.add(MaxPool2D((2, 2)))
+    #model.add(Dropout(0.4))
+    model.add(Flatten())
+    model.add(Dense(256, activation='relu'))
+    model.add(Dense(action_total, activation='softmax'))
 
-    conv_2 = Conv2D(64, (3,3), strides=(1,1))(act_1)
-    act_2 = Activation('relu')(conv_2)
-
-    conv_3 = Conv2D(64, (3,3), strides=(1,1))(act_2)
-    act_3 = Activation('relu')(conv_3)
-
-    pooling_1 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(act_3)
-
-    conv_4 = Conv2D(128, (3,3), strides=(1,1))(pooling_1)
-    act_4 = Activation('relu')(conv_4)
-
-    pooling_2 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(act_4)
-
-    flat_1 = Flatten()(pooling_2)
-
-    fc = Dense(1280)(flat_1)
-    fc = Activation('relu')(fc)
-    fc = Dropout(0.5)(fc)
-    fc = Dense(4)(fc)
-
-    outputs = Activation('sigmoid')(fc)
-
-    model = Model(inputs=inputs, outputs=outputs)
-
-    model.compile(loss='categorical_crossentropy', optimizer='adadelta', metrics=['accuracy'])
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     return model
 

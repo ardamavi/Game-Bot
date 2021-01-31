@@ -13,8 +13,9 @@ from get_dataset import save_img
 from multiprocessing import Process
 from keras.models import model_from_json
 from pynput.mouse import Listener as mouse_listener
-from pynput.keyboard import Listener as key_listener
-
+import string
+from threading import *
+import keyboard as kb
 def get_screenshot():
     img = ImageGrab.grab()
     img = np.array(img)[:,:,:3] # Get first 3 channel from image as numpy array.
@@ -56,15 +57,21 @@ def listen_keyboard():
     if not os.path.exists(data_path):
         os.makedirs(data_path)
 
-    def on_press(key):
-        save_event_keyboard(data_path, 1, key)
-
-    def on_release(key):
-        save_event_keyboard(data_path, 2, key)
-
-    with key_listener(on_press=on_press, on_release=on_release) as listener:
-        listener.join()
-
+    keys = list(string.ascii_lowercase)
+    keys.append("space_bar")
+    
+    def pressed(key):
+        while True:
+            continue_or_na = kb.is_pressed(key)
+            if continue_or_na:
+                save_event_keyboard(data_path, 1, key)
+    
+   
+            
+    
+    thread1 = [Thread(target=pressed, kwargs={"key":key}, daemon=True) for key in keys]
+    for thread in thread1:
+        thread.start()
 def main():
     dataset_path = 'Data/Train_Data/'
     if not os.path.exists(dataset_path):
