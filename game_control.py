@@ -1,6 +1,6 @@
 # Arda Mavi
 from pynput.mouse import Button, Controller as Mouse
-from pynput.keyboard import Controller as Keyboard
+from pynput.keyboard import Key, Controller as Keyboard
 import time
 # For encoding keyboard keys:
 def get_keys():
