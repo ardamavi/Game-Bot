@@ -42,3 +42,8 @@ Deep Learning is a subfield of machine learning with neural networks inspired by
 - Run CMD and Input Command `pip3 install -r requirements.txt`
 
 ### This project is still being worked on ...
+
+
+### TODO:
+- Update/Allow CNN Model to train each output on more observations (For More Accurate and complicated Models)
+- Update requirements.txt and Update Code for newer verstions of packages
