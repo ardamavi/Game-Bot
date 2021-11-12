@@ -5,7 +5,7 @@ from get_dataset import get_dataset
 from get_model import get_model, save_model
 from keras.callbacks import ModelCheckpoint, TensorBoard
 
-epochs = 10
+epochs = 15
 batch_size = 32
 
 def train_model(model, X, X_test, Y, Y_test):
@@ -22,6 +22,7 @@ def train_model(model, X, X_test, Y, Y_test):
 
 def main():
     X, X_test, Y, Y_test, action_total = get_dataset()
+    print(action_total)
     model = get_model(action_total)
     model = train_model(model, X, X_test, Y, Y_test)
     save_model(model)
