@@ -4,7 +4,7 @@ Author: Arda Mavi
 """
 import os
 
-from keras.callbacks import ModelCheckpoint, TensorBoard
+from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard
 
 from get_dataset import get_dataset
 from get_model import get_model, save_model

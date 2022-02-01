@@ -8,7 +8,7 @@ import pickle
 
 import numpy as np
 from PIL import Image
-from keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical
 from numpy import size
 from sklearn.model_selection import train_test_split
 from imageio import imread, imsave

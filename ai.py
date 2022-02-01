@@ -8,7 +8,7 @@ import pickle
 import time
 import numpy as np
 from PIL import Image
-from keras.models import model_from_json
+from tensorflow.keras.models import model_from_json
 from mss import mss
 
 from game_control import get_key, press, release, click
