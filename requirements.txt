@@ -8,3 +8,4 @@ scipy==1.2.3
 pynput
 h5py
 pyautogui
+imageio
