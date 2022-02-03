@@ -25,7 +25,7 @@ Deep Learning is a subfield of machine learning with neural networks inspired by
 1. Change the desired kets in the game_control.py file's get keys function, by changing return keys to desired ones
 1. Run `python3 create_dataset.py` command in terminal.
 2. Play your desired game.
-3. Stop `create_dataset` program with `Cntrl-C` in terminal.
+3. Stop `create_dataset` program with `ctrl-C` in terminal.
 
 ### Model Training:
 `python3 train.py`
