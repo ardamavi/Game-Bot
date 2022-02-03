@@ -1,58 +1,105 @@
-# Arda Mavi
-from pynput.mouse import Button, Controller as Mouse
-from pynput.keyboard import Key, Controller as Keyboard
-import time
-import win32api
+"""
+This file contains the game control logic.
+
+Author: Arda Mavi
+"""
+import pyautogui
+
+from pynput.mouse import Controller as Mouse
+from pynput.keyboard import Key
+
+
 # For encoding keyboard keys:
 def get_keys():
-    return ['w', 'a', 's', 'd', 'r', 'f', 'g', 'c', 'Key.space', 'Key.shift']
+    """
+    Returns a list of all the keys that can be pressed.
+    :return: The list of keys.
+    """
+    return ["w", "a", "s", "d", "r", "f", "g", "c", "Key.space", "Key.shift"]
 
-def get_key(id):
-    return get_keys()[id]
+
+def get_key(key_id):
+    """
+    Returns the key that corresponds to the given key id.
+    :param key_id: Set the key id.
+    :return: the key that corresponds to the given key id.
+    """
+    return get_keys()[key_id]
+
 
 def get_id(key):
+    """
+    Returns the id of the given key.
+    :param key: The key.
+    :return: The id of the given key.
+    """
     try:
-        print('Key Pressed:',key.char,sep='')
+        print("Key Pressed:", key.char, sep="")
         return get_keys().index(key.char)
     except:
-        if (str(key)+'') not in get_keys():
-            print((str(key)+''),' is not in list')
+        if (str(key) + "") not in get_keys():
+            print((str(key) + ""), " is not in list")
             return 1000
-    print('Key Pressed:',(str(key)+''),sep='')
-    return get_keys().index((str(key)+''))
+    print("Key Pressed:", (str(key) + ""), sep="")
+    return get_keys().index((str(key) + ""))
 
-keyboard = Keyboard()
+
 mouse = Mouse()
+
 
 # Mouse:
 def move(x, y):
-    win32api.SetCursorPos((x,y))
-    return
+    """
+    Moves the mouse to the given coordinates.
+    :param x: x coordinate.
+    :param y: y coordinate.
+    :return: None
+    """
+    pyautogui.moveTo(x, y)
+
 
 def scroll(x, y):
+    """
+    Scrolls the mouse to the given coordinates.
+    :param x: The horizontal scroll.
+    :param y: The vertical scroll.
+    :TODO: Change the scroll function to scroll with pyautogui.
+    """
     mouse.scroll(x, y)
-    return
+
 
 def click(x, y):
-    mouse.press(Button.left)
+    """
+    Clicks the mouse at the given coordinates.
+    :param x: The x coordinate.
+    :param y: The y coordinate.
+    """
     move(x, y)
-    return
+    pyautogui.click()
+
 
 # Keyboard:
 def press(key):
-    if key == 'Key.shift':
-        keyboard.press(Key.shift)
-    elif key == 'Key.space':
-        keyboard.press(Key.space)
+    """
+    Presses the given key.
+    :param key: The key.
+    """
+    if key in ["Key.shift", "shift"]:
+        pyautogui.keyDown("shift")
+    elif key in ["Key.space", "space"]:
+        pyautogui.keyDown("space")
     else:
-        keyboard.press(key)
-    return
+        pyautogui.keyDown(key)
+
 
 def release(key):
-    if key == 'Key.shift':
-        keyboard.release(Key.shift)
-    elif key == 'Key.space':
-        keyboard.release(Key.space)
+    """
+    Releases the given key.
+    :param key: the key.
+    """
+    if key in ["Key.shift", "shift"]:
+        pyautogui.keyUp(Key.shift)
+    elif key in ["Key.space", "space"]:
+        pyautogui.keyUp(Key.space)
     else:
-        keyboard.release(key)
-    return
+        pyautogui.keyUp(key)
