@@ -4,13 +4,12 @@ This file will create a dataset of images and labels for training.
 Author: Arda Mavi
 """
 import os
-from multiprocessing import Process
 import time
+from multiprocessing import Process
 
 import numpy as np
 from PIL import Image
 from mss import mss
-from numpy import size
 from pynput.keyboard import Listener as key_listener
 from pynput.mouse import Listener as mouse_listener
 
@@ -30,7 +29,8 @@ def get_screenshot():
         img = Image.frombytes('RGB', sct_img.size, sct_img.bgra, 'raw', 'BGRX')
         img = np.array(img)[:, :, :3]  # Get first 3 channel from image as numpy array.
         # resize it with PIL, because scipy.misc.imresize is deprecated.
-        img = img(Image.fromarray(img).resize((size[0] * 4, size[1] * 4), resample=Image.BICUBIC))
+        img = Image.fromarray(img)
+        img = img.resize((img.size[0] * 4, img.size[1] * 4), resample=Image.BICUBIC)
         # img = imresize(img, (150, 150, 3)).astype('float32') / 255.
         return img
 
@@ -49,14 +49,24 @@ def save_event_keyboard(data_path, event, key):
         save_img(data_path, screenshot)
 
 
-def save_event_mouse(data_path, x, y):
+def save_event_mouse(data_path, x_coordinate, y_coordinate, button, pressed):
     """
     This function will save the event of the mouse.
     :param data_path: path to save the event
-    :param x: x coordinate
-    :param y: y coordinate
+    :param x_coordinate: x coordinate
+    :param y_coordinate: y coordinate
     """
-    data_path = data_path + '/{0},{1},0,0,{2}'.format(x, y, time.time())
+    # 539,996,0,0,1643879876.0606766
+    # 539 x coordinate
+    # 996 y coordinate
+
+    # 1643879876.0606766 time since epoch
+    # button is an enum
+
+    # cut button at dot and keep the last part.
+    button = button.name.split('.')[-1]
+    data_path = data_path + '/{0},{1},{2},{3},{4}'.format(x_coordinate, y_coordinate, button, int(pressed),
+                                                          time.time())
     screenshot = get_screenshot()
     save_img(data_path, screenshot)
 
@@ -70,13 +80,36 @@ def listen_mouse():
     if not os.path.exists(data_path):
         os.makedirs(data_path)
 
-    def on_click(x, y, button, pressed):
-        save_event_mouse(data_path, x, y)
+    def on_click(x_coordinate, y_coordinate, button, pressed):
+        """
+        This function will get the x and y coordinate of the mouse, when a click happens.
+        :param x_coordinate: int
+        :param y_coordinate: int
+        :TODO: fix the function. Help from: https://pynput.readthedocs.io/en/latest/mouse.html
+        """
+        print(data_path, x_coordinate, y_coordinate, button, pressed)
+        save_event_mouse(data_path, x_coordinate, y_coordinate, button, pressed)
 
-    def on_scroll(x, y, dx, dy):
+    def on_scroll(x_cord, y_cord, dx, dy):
+        """
+        This function will get the new x and y coordinate of the mouse, when a scroll happens.
+        dx and dy are the amount of scrolling.
+        :param x_cord: int
+        :param y_cord: int
+        :param dx: int
+        :param dy: int
+        :return: None
+        """
         pass
 
-    def on_move(x, y):
+    def on_move(x_cord, y_cord):
+        """
+        This function will get the new x and y coordinate of the mouse, when a move happens.
+        If this callback raises an exception, or returns False, the mouse tracking will be stopped.
+        :param x_cord: int
+        :param y_cord: int
+        :return: None
+        """
         pass
 
     with mouse_listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:

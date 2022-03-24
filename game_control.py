@@ -15,7 +15,13 @@ def get_keys():
     Returns a list of all the keys that can be pressed.
     :return: The list of keys.
     """
-    return ["w", "a", "s", "d", "r", "f", "g", "c", "Key.space", "Key.shift"]
+    return ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+            "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m", ",", ".",
+            "Key.space", "Key.shift", "Key.shift_r", "Key.esc", "Key.enter", "Key.backspace", "Key.tab", "Key.ctrl",
+            "Key.ctrl_r", "Key.caps_lock", "Key.page_up", "Key.page_down", "Key.end", "Key.home", "Key.delete",
+            "Key.insert", "Key.left", "Key.up", "Key.right", "Key.down", "Key.num_lock", "Key.print_screen",
+            "Key.f1", "Key.f2", "Key.f3", "Key.f4", "Key.f5", "Key.f6", "Key.f7", "Key.f8", "Key.f9", "Key.f10",
+            "Key.f11", "Key.f12"]
 
 
 def get_key(key_id):
@@ -34,13 +40,13 @@ def get_id(key):
     :return: The id of the given key.
     """
     try:
-        print("Key Pressed:", key.char, sep="")
+        print("Key Pressed:", key.char, sep=" ")
         return get_keys().index(key.char)
     except:
         if (str(key) + "") not in get_keys():
             print((str(key) + ""), " is not in list")
             return 1000
-    print("Key Pressed:", (str(key) + ""), sep="")
+    print("Key Pressed:", (str(key) + ""), sep=" ")
     return get_keys().index((str(key) + ""))
 
 
@@ -63,7 +69,6 @@ def scroll(x, y):
     Scrolls the mouse to the given coordinates.
     :param x: The horizontal scroll.
     :param y: The vertical scroll.
-    :TODO: Change the scroll function to scroll with pyautogui.
     """
     mouse.scroll(x, y)
 
