@@ -30,7 +30,7 @@ def get_screenshot():
         img = np.array(img)[:, :, :3]  # Get first 3 channel from image as numpy array.
         # resize it with PIL, because scipy.misc.imresize is deprecated.
         img = Image.fromarray(img)
-        img = img.resize((img.size[0] * 4, img.size[1] * 4), resample=Image.BICUBIC)
+        img = img.resize((img.size[0] / 12, img.size[1] / 12), resample=Image.BICUBIC)
         # img = imresize(img, (150, 150, 3)).astype('float32') / 255.
         return img
 
