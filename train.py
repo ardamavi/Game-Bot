@@ -51,7 +51,7 @@ def main():
     x, x_test, y, y_test, action_total = get_dataset()
     print(action_total)
     model = get_model(action_total)
-    model = train_model(model, X, X_test, Y, Y_test)
+    model = train_model(model, x, x_test, x, x_test)
     save_model(model)
     return model
 
