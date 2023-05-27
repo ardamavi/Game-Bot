@@ -11,7 +11,7 @@ from PIL import Image
 from tensorflow.keras.utils import to_categorical
 from numpy import size
 from sklearn.model_selection import train_test_split
-from imageio import imread, imsave
+from imageio import imread, imsave, imresize
 
 
 def get_img(data_path):
@@ -21,10 +21,7 @@ def get_img(data_path):
     :return: the image
     """
     img = imread(data_path)
-    # resize it with PIL, because scipy.misc.imresize is deprecated.
-    img = img(Image.fromarray(img).resize((size[0] * 4, size[1] * 4),
-                                          resample=Image.BICUBIC))
-    # img = imresize(img, (150, 150, 3))
+    img = imresize(img, (150, 150))
     return img
 
 
