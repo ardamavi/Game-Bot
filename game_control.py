@@ -1,38 +1,110 @@
-# Arda Mavi
-from pynput.mouse import Button, Controller as Mouse
-from pynput.keyboard import Controller as Keyboard
+"""
+This file contains the game control logic.
+
+Author: Arda Mavi
+"""
+import pyautogui
+
+from pynput.mouse import Controller as Mouse
+from pynput.keyboard import Key
+
 
 # For encoding keyboard keys:
 def get_keys():
-    return ['\t', '\n', '\r', ' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', 'accept', 'add', 'alt', 'altleft', 'altright', 'apps', 'backspace', 'browserback', 'browserfavorites', 'browserforward', 'browserhome', 'browserrefresh', 'browsersearch', 'browserstop', 'capslock', 'clear', 'convert', 'ctrl', 'ctrlleft', 'ctrlright', 'decimal', 'del', 'delete', 'divide', 'down', 'end', 'enter', 'esc', 'escape', 'execute', 'f1', 'f10', 'f11', 'f12', 'f13', 'f14', 'f15', 'f16', 'f17', 'f18', 'f19', 'f2', 'f20', 'f21', 'f22', 'f23', 'f24', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'final', 'fn', 'hanguel', 'hangul', 'hanja', 'help', 'home', 'insert', 'junja', 'kana', 'kanji', 'launchapp1', 'launchapp2', 'launchmail', 'launchmediaselect', 'left', 'modechange', 'multiply', 'nexttrack', 'nonconvert', 'num0', 'num1', 'num2', 'num3', 'num4', 'num5', 'num6', 'num7', 'num8', 'num9', 'numlock', 'pagedown', 'pageup', 'pause', 'pgdn', 'pgup', 'playpause', 'prevtrack', 'print', 'printscreen', 'prntscrn', 'prtsc', 'prtscr', 'return', 'right', 'scrolllock', 'select', 'separator', 'shift', 'shiftleft', 'shiftright', 'sleep', 'space', 'stop', 'subtract', 'tab', 'up', 'volumedown', 'volumemute', 'volumeup', 'win', 'winleft', 'winright', 'yen', 'command', 'option', 'optionleft', 'optionright']
+    """
+    Returns a list of all the keys that can be pressed.
+    :return: The list of keys.
+    """
+    return ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+            "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m", ",", ".",
+            "Key.space", "Key.shift", "Key.shift_r", "Key.esc", "Key.enter", "Key.backspace", "Key.tab", "Key.ctrl",
+            "Key.ctrl_r", "Key.caps_lock", "Key.page_up", "Key.page_down", "Key.end", "Key.home", "Key.delete",
+            "Key.insert", "Key.left", "Key.up", "Key.right", "Key.down", "Key.num_lock", "Key.print_screen",
+            "Key.f1", "Key.f2", "Key.f3", "Key.f4", "Key.f5", "Key.f6", "Key.f7", "Key.f8", "Key.f9", "Key.f10",
+            "Key.f11", "Key.f12"]
 
-def get_key(id):
-    return get_keys()[id]
+
+def get_key(key_id):
+    """
+    Returns the key that corresponds to the given key id.
+    :param key_id: Set the key id.
+    :return: the key that corresponds to the given key id.
+    """
+    return get_keys()[key_id]
+
 
 def get_id(key):
-    return get_keys().index(key)
+    """
+    Returns the id of the given key.
+    :param key: The key.
+    :return: The id of the given key.
+    """
+    try:
+        print("Key Pressed:", key.char, sep=" ")
+        return get_keys().index(key.char)
+    except:
+        if (str(key) + "") not in get_keys():
+            print((str(key) + ""), " is not in list")
+            return 1000
+    print("Key Pressed:", (str(key) + ""), sep=" ")
+    return get_keys().index((str(key) + ""))
 
-keyboard = Keyboard()
+
 mouse = Mouse()
+
 
 # Mouse:
 def move(x, y):
-    mouse.position = (x, y)
-    return
+    """
+    Moves the mouse to the given coordinates.
+    :param x: x coordinate.
+    :param y: y coordinate.
+    :return: None
+    """
+    pyautogui.moveTo(x, y)
+
 
 def scroll(x, y):
+    """
+    Scrolls the mouse to the given coordinates.
+    :param x: The horizontal scroll.
+    :param y: The vertical scroll.
+    """
     mouse.scroll(x, y)
-    return
+
 
 def click(x, y):
-    mouse.press(Button.left)
-    return
+    """
+    Clicks the mouse at the given coordinates.
+    :param x: The x coordinate.
+    :param y: The y coordinate.
+    """
+    move(x, y)
+    pyautogui.click()
+
 
 # Keyboard:
 def press(key):
-    keyboard.press(key)
-    return
+    """
+    Presses the given key.
+    :param key: The key.
+    """
+    if key in ["Key.shift", "shift"]:
+        pyautogui.keyDown("shift")
+    elif key in ["Key.space", "space"]:
+        pyautogui.keyDown("space")
+    else:
+        pyautogui.keyDown(key)
+
 
 def release(key):
-    keyboard.release(key)
-    return
+    """
+    Releases the given key.
+    :param key: the key.
+    """
+    if key in ["Key.shift", "shift"]:
+        pyautogui.keyUp(Key.shift)
+    elif key in ["Key.space", "space"]:
+        pyautogui.keyUp(Key.space)
+    else:
+        pyautogui.keyUp(key)

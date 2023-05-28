@@ -2,7 +2,10 @@ numpy
 scikit-learn
 scikit-image
 pillow
-tensorflow
-keras
+tensorflow==1.9.0
+keras==2.2.0
+scipy==1.2.3
 pynput
 h5py
+pyautogui
+imageio

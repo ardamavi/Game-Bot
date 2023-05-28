@@ -1,58 +1,83 @@
-# Arda Mavi
-import os
-import platform
+"""
+This is the main file for the AI.
+
+Author: Arda Mavi
+"""
+import pickle
+
+import time
 import numpy as np
-from time import sleep
-from PIL import ImageGrab
-from game_control import *
+from PIL import Image
+from tensorflow.keras.models import model_from_json
+from mss import mss
+
+from game_control import get_key, press, release, click
 from predict import predict
-from game_control import *
-from keras.models import model_from_json
+
 
 def main():
-    # Get Model:
-    model_file = open('Data/Model/model.json', 'r')
-    model = model_file.read()
-    model_file.close()
+    """
+    Main function.
+
+    :return: None
+    """
+    with open("Data/Model/model.json", "r") as model_file:
+        model = model_file.read()
     model = model_from_json(model)
     model.load_weights("Data/Model/weights.h5")
 
-    print('AI start now!')
-
+    print("AI starting now!")
+    with open("listfile.data", "rb") as filehandle:
+        # read the data as binary data stream
+        places_list = pickle.load(filehandle)
     while 1:
         # Get screenshot:
-        screen = ImageGrab.grab()
-        # Image to numpy array:
-        screen = np.array(screen)
+        with mss() as sct:
+            monitor = sct.monitors[1]
+            sct_img = sct.grab(monitor)
+            # Convert to PIL/Pillow Image
+            screen = Image.frombytes("RGB", sct_img.size, sct_img.bgra, "raw",
+                                     "BGRX")
+            screen = np.array(screen)[
+                :, :, :3
+            ]  # Get first 3 channel from image as numpy array.
         # 4 channel(PNG) to 3 channel(JPG)
-        Y = predict(model, screen)
-        if Y == [0,0,0,0]:
+        y_ai = predict(model, screen)
+        print(y_ai)
+        y_ai = places_list[y_ai]
+        y_ai = [int(i) for i in y_ai]
+        print(y_ai)
+        if y_ai == [0, 0, 0, 0]:
             # Not action
             continue
-        elif Y[0] == -1 and Y[1] == -1:
+        if y_ai[0] == -1 and y_ai[1] == -1:
             # Only keyboard action.
-            key = get_key(Y[3])
-            if Y[2] == 1:
+            key = get_key(y_ai[3])
+            if y_ai[2] == 1:
                 # Press:
                 press(key)
             else:
                 # Release:
                 release(key)
-        elif Y[2] == 0 and Y[3] == 0:
-            # Only mouse action.
-            click(Y[0], Y[1])
-        else:
-            # Mouse and keyboard action.
-            # Mouse:
-            click(Y[0], Y[1])
-            # Keyboard:
-            key = get_key(Y[3])
-            if Y[2] == 1:
-                # Press:
-                press(key)
-            else:
-                # Release:
-                release(key)
+        elif y_ai[2] == 0 and y_ai[3] == 0:
+            # Click action.
+            click(y_ai[0], y_ai[1])
 
-if __name__ == '__main__':
+        # else:
+        #     # Mouse and keyboard action.
+        #     # Mouse:
+        #     click(int(y_ai[0]), int(y_ai[1]))
+        #     # Keyboard:
+        #     key = get_key(int(y_ai[3]))
+        #     if y_ai[2] == 1:
+        #         # Press:
+        #         press(key)
+        #     else:
+        #         # Release:
+        #         release(key)
+
+        time.sleep(0.005)
+
+
+if __name__ == "__main__":
     main()
